@@ -21,7 +21,9 @@ def get_most_popular_articles():
         group by
             title
         order by
-            num desc;
+            num desc
+        limit
+            3;
     """)
     return c.fetchall()
     db.close()
@@ -89,24 +91,25 @@ def get_day_most_error():
     return c.fetchall()
     db.close()
 
-popular_articles = get_most_popular_articles()
-print("Most Popular Articles by views according to web server log:")
-for row in popular_articles:
-    text = "\"{}\" - {} views".format(row[0], row[1])
-    print(text)
+if __name__ == "__main__":
+    popular_articles = get_most_popular_articles()
+    print("Most Popular Articles by views according to web server log:")
+    for row in popular_articles:
+        text = "\"{}\" - {} views".format(row[0], row[1])
+        print(text)
 
-print("\n")
+    print("\n")
 
-popular_authors = get_most_popular_authors()
-print("Most Popular Authors by article views according to web server log:")
-for row in popular_authors:
-    text = "\"{}\" - {} views".format(row[0], row[1])
-    print(text)
+    popular_authors = get_most_popular_authors()
+    print("Most Popular Authors by article views according to web server log:")
+    for row in popular_authors:
+        text = "\"{}\" - {} views".format(row[0], row[1])
+        print(text)
 
-print("\n")
+    print("\n")
 
-most_errors_days = get_day_most_error()
-print("Day with error status code percentage more than 1 %:")
-for row in most_errors_days:
-    text = "\"{}\" - {} % errors ".format(row[0], row[1])
-    print(text)
+    most_errors_days = get_day_most_error()
+    print("Day with error status code percentage more than 1 %:")
+    for row in most_errors_days:
+        text = "\"{}\" - {} % errors ".format(row[0], row[1])
+        print(text)
